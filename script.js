@@ -1,17 +1,15 @@
 const API_URL = '/api/users';
-const TOKEN = '5IDtoken'; // Token richiesto dal middleware
+const TOKEN = '5IDtoken';
 const tableBody = document.querySelector('#usersTable tbody');
 const addUserForm = document.querySelector('#addUserForm');
 
 let usersCache = [];
 
-// Carica utenti e aggiorna tabella
 async function fetchUsers() {
   try {
     const res = await fetch(API_URL);
     const users = await res.json();
 
-    // Aggiorna solo se ci sono cambiamenti
     if (JSON.stringify(users) !== JSON.stringify(usersCache)) {
       usersCache = users;
       renderUsers(users);
@@ -21,7 +19,6 @@ async function fetchUsers() {
   }
 }
 
-// Disegna la tabella utenti
 function renderUsers(users) {
   tableBody.innerHTML = '';
   users.forEach(user => {
@@ -36,7 +33,6 @@ function renderUsers(users) {
       </td>
     `;
 
-    // Mostra dettagli
     tr.querySelector('.details-btn').addEventListener('click', async () => {
       try {
         const res = await fetch(`${API_URL}/${user.name}`);
@@ -48,7 +44,6 @@ function renderUsers(users) {
       }
     });
 
-    // Modifica utente
     tr.querySelector('.edit-btn').addEventListener('click', async () => {
       const newName = prompt('Nuovo nome:', user.name);
       const newAge = prompt('Nuova età:', user.age);
@@ -70,7 +65,6 @@ function renderUsers(users) {
       }
     });
 
-    // Elimina utente
     tr.querySelector('.delete-btn').addEventListener('click', async () => {
       if (!confirm(`Sei sicuro di voler eliminare ${user.name}?`)) return;
       try {
@@ -91,7 +85,6 @@ function renderUsers(users) {
   });
 }
 
-// Aggiungi utente
 addUserForm.addEventListener('submit', async e => {
   e.preventDefault();
   const formData = new FormData(addUserForm);
@@ -123,6 +116,5 @@ addUserForm.addEventListener('submit', async e => {
   }
 });
 
-// Aggiorna ogni 2 secondi
 setInterval(fetchUsers, 2000);
 fetchUsers();
