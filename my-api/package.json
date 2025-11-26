@@ -1,12 +1,13 @@
 {
   "name": "my-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Simple user management API with Swagger documentation",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
-  "keywords": [],
+  "keywords": ["express", "swagger", "api"],
   "author": "",
   "license": "ISC",
   "dependencies": {
