@@ -2,13 +2,13 @@ const API = "https://mio-server.onrender.com/api/users";
 let cacheMap = new Map();
 const POLL = 2000;
 
-// --- UTILS ---
+
 
 function idOf(u) {
   return u?.id ?? u?._id ?? u?.name ?? null;
 }
 
-// --- FETCH FUNCTIONS ---
+// fetch
 
 function fetchAll() {
   return fetch(API, { headers: { accept: "/" } })
@@ -91,7 +91,6 @@ function deliteUser(id) {
     .catch(e => { throw e; });
 }
 
-// --- RENDER ---
 
 function renderOne(u) {
   const tpl = document.getElementById("template").content.cloneNode(true);
@@ -174,8 +173,7 @@ function renderList(list) {
   });
 }
 
-// --- FORM / MODIFICA ---
-
+//modifica
 function modificaUtente(u) {
   vista_aggiunta();
   document.getElementById("add_name").value = u.name ?? "";
@@ -303,7 +301,6 @@ function poll() {
 initialLoad();
 setInterval(poll, POLL);
 
-// --- GLOBAL EXPORTS ---
 
 window.aggiungi = aggiungi;
 window.vista_aggiunta = window.vista_aggiunta || (() => {
